@@ -1,5 +1,6 @@
 import FormView from '../views/FormView.js';
 import ResultView from '../views/ResultView.js';
+import TabView from '../views/TabView.js';
 
 import SearchModel from '../models/SearchModel.js';
 
@@ -11,10 +12,22 @@ export default {
         FormView.setup(document.querySelector('form'))
             //on을 사용하려면 FormView.setup에서 this가 return되는지 확인해야한다.
             .on('@submit', e => this.onSubmit(e.detail.input))
-            .on('@reset', e => this.onResetForm())
+            .on('@reset', e => this.onResetForm());
+
+        TabView.setup(document.querySelector('#tabs'))
+            .on('@change', e => this.onChangeTab(e.detail.tab));
 
         ResultView.setup(document.querySelector('#search-result'))
-            
+
+        this.selectedTab = '추천 검색어';
+        
+        this.renderView();
+    },
+
+    renderView(){
+        console.log(tag, 'renderView()');
+        TabView.setActiveTab(this.selectedTab);
+        ResultView.hide();
     },
 
     search(query){
@@ -37,6 +50,11 @@ export default {
     },
 
     onSearchResult(data){
+        console.log(tag, 'onSearchResult()');
         ResultView.render(data);
+    },
+
+    onChangeTab(tabName){
+        console.log('tag', 'onChangeTab()')
     }
 }
