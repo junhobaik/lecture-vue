@@ -1,8 +1,10 @@
 import FormView from '../views/FormView.js';
 import ResultView from '../views/ResultView.js';
 import TabView from '../views/TabView.js';
+import KeywordView from '../views/keywordView.js';
 
 import SearchModel from '../models/SearchModel.js';
+import keywordModel from '../models/KeywordModel.js';
 
 const tag = '[MainController]';
 
@@ -27,7 +29,20 @@ export default {
     renderView(){
         console.log(tag, 'renderView()');
         TabView.setActiveTab(this.selectedTab);
+
+        if(this.selectedTab === '추천 검색어'){
+            this.fetchSearchKeyword();
+        }else{
+
+        }
+
         ResultView.hide();
+    },
+
+    fetchSearchKeyword(){
+        keywordModel.list().then(data => {
+            KeywordView.render(data);
+        })
     },
 
     search(query){

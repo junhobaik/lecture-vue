@@ -6,8 +6,9 @@ const TabView = Object.create(View);
 
 TabView.setup = function(el){
     this.init(el);
-
     this.bindClick();
+
+    return this;
 }
 
 TabView.setActiveTab = function(tabName){
