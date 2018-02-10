@@ -46,12 +46,13 @@ export default {
 
     fetchSearchKeyword(){
         keywordModel.list().then(data => {
-            KeywordView.render(data);
-        })
+            KeywordView.render(data)
+        });
     },
 
     search(query){
         console.log(tag, 'search()', query);
+        FormView.setValue(query);
         SearchModel.list(query)
             .then(data => {
                 this.onSearchResult(data);
@@ -66,6 +67,7 @@ export default {
     onResetForm(){
         console.log(tag, 'onReset()');
         ResultView.hide();
+        this.renderView();
     },
 
     onSearchResult(data){
