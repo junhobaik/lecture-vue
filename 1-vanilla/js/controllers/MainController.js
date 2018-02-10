@@ -5,6 +5,7 @@ import KeywordView from '../views/keywordView.js';
 
 import SearchModel from '../models/SearchModel.js';
 import keywordModel from '../models/KeywordModel.js';
+import keywordView from '../views/keywordView.js';
 
 const tag = '[MainController]';
 
@@ -19,7 +20,10 @@ export default {
         TabView.setup(document.querySelector('#tabs'))
             .on('@change', e => this.onChangeTab(e.detail.tab));
 
-        ResultView.setup(document.querySelector('#search-result'))
+
+        keywordView.setup(document.querySelector('#search-keyword'));
+
+        ResultView.setup(document.querySelector('#search-result'));
 
         this.selectedTab = '추천 검색어';
         
