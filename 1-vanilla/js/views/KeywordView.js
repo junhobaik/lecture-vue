@@ -12,12 +12,14 @@ KeywordView.setup = function(el){
 
 KeywordView.render = function(data = []){
   this.el.innerHTML = data.length ? this.getKeywordsHtml(data) : '추천 검색어가 없습니다';
+  this.bindClickEvent();
+
   this.show();
 }
 
 KeywordView.getKeywordsHtml = function(data){
   return data.reduce((html, item, index) =>{
-    html += `<li>
+    html += `<li data-keyword=${item.keyword}>
       <sapn class="number">${index + 1 }</sapn>
       ${item.keyword}
     </li>`;
@@ -25,4 +27,14 @@ KeywordView.getKeywordsHtml = function(data){
   }, '<ul class="list">') + '</ul>';
 }
 
+KeywordView.bindClickEvent = function(){
+  Array.from(this.el.querySelectorAll('li')).forEach(li => {
+    li.addEventListener('click', e => this.onClickKeyword(e))
+  })
+}
+
+KeywordView.onClickKeyword = function(e){
+  const { keyword } = e.currentTarget.dataset;
+  this.emit('@click', { keyword })
+}
 export default KeywordView;
