@@ -2,10 +2,11 @@ import FormView from '../views/FormView.js';
 import ResultView from '../views/ResultView.js';
 import TabView from '../views/TabView.js';
 import KeywordView from '../views/keywordView.js';
+import HistoryView from '../views/HistoryView.js';
 
 import SearchModel from '../models/SearchModel.js';
-import keywordModel from '../models/KeywordModel.js';
-import keywordView from '../views/keywordView.js';
+import KeywordModel from '../models/KeywordModel.js';
+import HistoryModel from '../models/HistoryModel.js';
 
 const tag = '[MainController]';
 
@@ -21,12 +22,15 @@ export default {
             .on('@change', e => this.onChangeTab(e.detail.tab));
 
 
-        keywordView.setup(document.querySelector('#search-keyword'))
+        KeywordView.setup(document.querySelector('#search-keyword'))
             .on('@click', e => this.onClickKeyword(e.detail.keyword));
+
+        HistoryView.setup(document.querySelector('#search-history'))
+            .on('@click', e => this.onClickHistory(e.detail.keyword));
 
         ResultView.setup(document.querySelector('#search-result'));
 
-        this.selectedTab = '추천 검색어';
+        this.selectedTab = '최근 검색어';
         
         this.renderView();
     },
@@ -37,16 +41,24 @@ export default {
 
         if(this.selectedTab === '추천 검색어'){
             this.fetchSearchKeyword();
+            HistoryView.hide();
         }else{
-            debugger;
+            this.fetchSearchHistory();
+            KeywordView.hide()
         }
 
         ResultView.hide();
     },
 
     fetchSearchKeyword(){
-        keywordModel.list().then(data => {
+        KeywordModel.list().then(data => {
             KeywordView.render(data)
+        });
+    },
+
+    fetchSearchHistory(){
+        HistoryModel.list().then(data => {
+            HistoryView.render(data)
         });
     },
 
@@ -83,6 +95,11 @@ export default {
 
     onClickKeyword(keyword){
         console.log('tag', 'onClickKeyword()');
+        this.search(keyword);
+    },
+
+    onClickHistory(keyword){
+        console.log('tag', 'onClickHistory()');
         this.search(keyword);
     }
 }
