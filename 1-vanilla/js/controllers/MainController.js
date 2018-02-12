@@ -26,7 +26,8 @@ export default {
             .on('@click', e => this.onClickKeyword(e.detail.keyword));
 
         HistoryView.setup(document.querySelector('#search-history'))
-            .on('@click', e => this.onClickHistory(e.detail.keyword));
+            .on('@click', e => this.onClickHistory(e.detail.keyword))
+            .on('@remove', e => this.onRemoveHistory(e.detail.keyword))
 
         ResultView.setup(document.querySelector('#search-result'));
 
@@ -58,7 +59,9 @@ export default {
 
     fetchSearchHistory(){
         HistoryModel.list().then(data => {
-            HistoryView.render(data)
+            HistoryView.render(data).bindRemoveBtn();
+            //render함수가 호출되고나면 DOM이 생성되고 그 후에 이벤트를 바인딩할 수 있으므로 이와같이 체이닝을 이용한다.
+            //체이닝을 하려면 render함수가 this를 return 해야한다.
         });
     },
 
@@ -101,5 +104,11 @@ export default {
     onClickHistory(keyword){
         console.log('tag', 'onClickHistory()');
         this.search(keyword);
+    },
+
+    onRemoveHistory(keyword){
+        console.log('tag', 'this.onRemoveHistory()');
+        HistoryModel.remove(keyword);
+        this.renderView();
     }
 }

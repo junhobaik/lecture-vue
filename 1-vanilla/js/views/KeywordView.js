@@ -19,6 +19,8 @@ KeywordView.render = function(data = []){
   this.bindClickEvent();
 
   this.show();
+  
+  return this;
 }
 
 KeywordView.getKeywordsHtml = function(data){
