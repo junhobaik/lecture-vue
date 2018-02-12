@@ -19,7 +19,7 @@ export default {
             .on('@reset', e => this.onResetForm());
 
         TabView.setup(document.querySelector('#tabs'))
-            .on('@change', e => this.onChangeTab(e.detail.tab));
+            .on('@change', e => this.onChangeTab(e.detail.tabName));
 
 
         KeywordView.setup(document.querySelector('#search-keyword'))
@@ -94,6 +94,8 @@ export default {
 
     onChangeTab(tabName){
         console.log('tag', 'onChangeTab()')
+        this.selectedTab = tabName;
+        this.renderView();
     },
 
     onClickKeyword(keyword){
