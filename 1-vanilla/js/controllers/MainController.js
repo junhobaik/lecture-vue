@@ -31,7 +31,7 @@ export default {
 
         ResultView.setup(document.querySelector('#search-result'));
 
-        this.selectedTab = '최근 검색어';
+        this.selectedTab = '추천 검색어';
         
         this.renderView();
     },
@@ -68,6 +68,7 @@ export default {
     search(query){
         console.log(tag, 'search()', query);
         FormView.setValue(query);
+        HistoryModel.add(query);
         SearchModel.list(query)
             .then(data => {
                 this.onSearchResult(data);
@@ -89,6 +90,7 @@ export default {
         console.log(tag, 'onSearchResult()');
         TabView.hide();
         KeywordView.hide();
+        HistoryView.hide();
         ResultView.render(data);
     },
 
