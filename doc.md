@@ -62,3 +62,31 @@ MVC : Model View Controller
   모델과 뷰를 연결하는 것, 모델로부터 데이터를 가져와 뷰로 전달, 반대로 뷰로부터 사용자 입력 데이터를 모델로 전달하기도 함.
 
 ---
+
+## MMVM
+
+
+ViewModel의 개념을 살펴볼 코드
+
+```javascript
+const h1 = document.createElement('h1');
+document.body.appendChild(h1);
+
+const viewModel = {};
+let model = '';
+
+Object.defineProperty(viewModel, 'model', {
+  get() { return model },
+  set() {
+    model = val;
+    h1.innerHTML = model;
+  }
+});
+
+viewModel.model // ""
+viewModel.model = 'hello world'; 
+//"hello world", h1의 내용(innerHTML) hello wordl로 바뀌어 렌더링됨
+
+viewModel.model = 'mv';
+//"mv", h1의 내용 hello world가 mv로 바뀌었다.
+```
