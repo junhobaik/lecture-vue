@@ -90,20 +90,26 @@ viewModel.model = 'mv';
 
 ## Vue.JS 설치
 
+
+
 ### CDN으로 설치하기
+
 ```html
 <script src="https://unpkg.com/vue"></script>
 ```
 
 
+
 ### NPM으로 설치하기
+
 ```shell
 # 최신 stable 버전
 $ npm install vue
 ```
 
 
-### CLI 설치
+
+### Vue CLI 설치
 
 ```shell
 # vue-cli 설치
@@ -117,11 +123,39 @@ $ npm run dev
 ```
 
 
-## Vue DevTools
+
+### Vue DevTools
 
 [크롬 확장 프로그램 설치](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
 
 
+##
+
+```js
+new Vue({
+  el: '#app',
+  data: {
+    query: ''
+  }
+})
+
+```
+
+```html
+<input type="text" v-model="query" placeholder="검색어를 입력하세요" autofocus>
+<button v-show="query.length" type="reset" class="btn-reset"></button>
+```
+
+v-model : app.js의 Vue data의 해당 항목과 연결된다.
+v-show : 지정한 조건에 따라 해당 엘리먼트가 보이거나 숨겨진다.
+
+
+
+```html
+<form v-on:submit.prevent="onSubmit">
+```
+v-on : dom에서 일어나는 이벤트 리슨
+.prevent : JS에서 preventDefault와 같은 효과
 ---
 
 ## References
