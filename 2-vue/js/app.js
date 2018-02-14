@@ -1,21 +1,30 @@
+import SearchModel from './models/SearchModel.js';
+
 new Vue({
   el: '#app',
   data: {
-    query: ''
+    query: '',
+    submitted: false,
+    searchResult: []
   },
   methods: {
     onSubmit(e){
-      debugger;
+      this.search();
     },
     onKeyup(){
       if(!this.query.length){
         this.onReset();
       }
     },
+    search(){
+      SearchModel.list().then(data => {
+        this.submitted = true;
+        this.searchResult = data;
+      })
+    },
     onReset(){
       this.query = '';
-      // TODO: 검색결과 숨기기
-      debugger;
+      this.submitted = false;
     }
   }
 })
