@@ -25,6 +25,7 @@ new Vue({
     onReset(){
       this.query = '';
       this.submitted = false;
+      this.searchResult = [];
     }
   }
 })
