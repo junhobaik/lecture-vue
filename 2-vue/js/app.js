@@ -40,19 +40,8 @@ new Vue({
       this.submitted = false;
       this.searchResult = [];
     },
-    onClick(e){
-      this.selectedTab = e.target.innerText;
-
-      if(this.selectedTab === this.tabs[0]){
-        KeywordModel.list().then(data => {
-          this.tabList = data;
-        })
-      }else{
-        HistoryModel.list().then(data => {
-          this.tabList = data;
-        })
-      }
-      
+    onClickTab(tab){
+      this.selectedTab = tab;
     }
   }
 })
