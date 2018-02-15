@@ -156,6 +156,27 @@ v-show : 지정한 조건에 따라 해당 엘리먼트가 보이거나 숨겨�
 ```
 v-on : dom에서 일어나는 이벤트 리슨
 .prevent : JS에서 preventDefault와 같은 효과
+
+```html
+<div v-if="history.length">
+  <ul class="list">
+    <li v-for="(item, index) in history"
+      v-on:click="onClickKeyword(item.keyword)">
+      {{item.keyword}}
+      <span class="date">{{item.date}}</span>
+      <button class="btn-remove"
+        v-on:click.stop="onClickRemoveHistory(item.keyword)"></button>
+    </li>
+  </ul>
+</div>
+<div v-else>
+  최근 검색어가 없습니다.
+</div>
+```
+v-if="조건"  
+v-else
+
+v-on:click.stop : 이벤트 버블링 전파를 멈춤
 ---
 
 ## References
