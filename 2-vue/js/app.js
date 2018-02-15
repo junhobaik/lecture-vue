@@ -43,7 +43,9 @@ new Vue({
       SearchModel.list().then(data => {
         this.submitted = true;
         this.searchResult = data;
-      })
+      });
+      HistoryModel.add(this.query);
+      this.fetchHistory();
     },
     onReset(){
       this.query = '';
@@ -56,6 +58,10 @@ new Vue({
     onClickKeyword(keyword){
       this.query = keyword;
       this.search();
+    },
+    onClickRemoveHistory(keyword){
+      HistoryModel.remove(keyword);
+      this.fetchHistory();
     }
   }
 })
