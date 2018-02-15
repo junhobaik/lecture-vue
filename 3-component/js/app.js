@@ -20,7 +20,7 @@ new Vue({
   components: {
     'search-form': FormComponent
   },
-  
+
   created() {
     this.selectedTab = this.tabs[0]
     this.fetchKeyword()
@@ -28,11 +28,9 @@ new Vue({
   },
 
   methods: {
-    onSubmit(e) {
+    onSubmit(inputValue) {
+      this.query = inputValue;
       this.search()
-    },
-    onKeyup(e) {
-      if (!this.query.length) this.resetForm()
     },
     onReset(e) {
       this.resetForm()
