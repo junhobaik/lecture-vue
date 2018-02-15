@@ -10,17 +10,20 @@ new Vue({
     tabs: ['추천 검색어', '최근 검색어'],
     selectedTab: '',
     searchResult: [],
-    tabList: [],
+    keywords: []
   },
 
   created(){
     this.selectedTab = this.tabs[0];
-    KeywordModel.list().then(data => {
-      this.tabList = data;
-    });
+    this.fetchKeyword();
   },
 
   methods: {
+    fetchKeyword(){
+      KeywordModel.list().then(data => {
+        this.keywords = data;
+      });
+    },
     onSubmit(e){
       this.search();
     },
@@ -42,6 +45,10 @@ new Vue({
     },
     onClickTab(tab){
       this.selectedTab = tab;
+    },
+    onClickKeyword(keyword){
+      this.query = keyword;
+      this.search();
     }
   }
 })
