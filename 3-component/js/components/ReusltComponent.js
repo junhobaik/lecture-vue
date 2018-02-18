@@ -1,5 +1,4 @@
 export default {
   template: '#search-result',
-  props: ['data', 'query'],
-  
+  props: ['data', 'query']
 };

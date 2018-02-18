@@ -4,6 +4,7 @@ import HistoryModel from './models/HistoryModel.js'
 
 import FormComponent from './components/FormComponent.js';
 import ResultComponent from './components/ReusltComponent.js';
+import ListComponent from './components/ListComponent.js';
 
 
 new Vue({
@@ -20,7 +21,8 @@ new Vue({
 
   components: {
     'search-form': FormComponent,
-    'search-result': ResultComponent
+    'search-result': ResultComponent,
+    'list': ListComponent
   },
 
   created() {
