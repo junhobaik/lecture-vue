@@ -3,6 +3,7 @@ import KeywordModel from './models/KeywordModel.js'
 import HistoryModel from './models/HistoryModel.js'
 
 import FormComponent from './components/FormComponent.js';
+import ResultComponent from './components/ReusltComponent.js';
 
 
 new Vue({
@@ -18,7 +19,8 @@ new Vue({
   },
 
   components: {
-    'search-form': FormComponent
+    'search-form': FormComponent,
+    'search-result': ResultComponent
   },
 
   created() {
