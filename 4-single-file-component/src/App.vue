@@ -7,12 +7,39 @@
     <div class="container">
       <search-form v-bind:value="query" v-on:@submit="onSubmit" v-on:@reset="onReset">
       </search-form>
+
+      <div class="content">
+        <div v-if="submitted">
+          <search-result v-bind:data="searchResult" v-bind:query="query"></search-result>
+        </div>
+        <div v-else>
+          <tabs v-bind:tabs="tabs" v-bind:selected-tab="selectedTab" v-on:@change="onClickTab">
+          </tabs>
+
+          <div v-if="selectedTab === tabs[0]">
+            <list v-bind:data="keywords" v-on:@click="onClickKeyword" type="keywords">
+            </list>
+          </div>
+          <div v-else>
+            <list v-bind:data="history" v-on:@click="onClickKeyword" v-on:@remove="onClickRemoveHistory" type="history">
+            </list>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
   import FormComponent from '../src/components/FormComponent.vue';
+  import ListComponent from '../src/components/ListComponent.vue';
+  import TabComponent from '../src/components/TabComponent.vue';
+  import ResultComponent from '../src/components/ResultComponent.vue';
+
+  import HistoryModel from '../src/models/HistoryModel.js';
+  import KeywordModel from '../src/models/KeywordModel.js';
+  import SearchModel from '../src/models/SearchModel.js';
 
   export default {
     name: 'app',
@@ -28,7 +55,15 @@
       }
     },
     components: {
-      'search-form': FormComponent
+      'search-form': FormComponent,
+      'list': ListComponent,
+      'search-result': ResultComponent,
+      'tabs': TabComponent
+    },
+    created() {
+      this.selectedTab = this.tabs[0]
+      this.fetchKeyword()
+      this.fetchHistory()
     },
     methods: {
       onSubmit(inputValue) {
